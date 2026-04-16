@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prédiction</title>
+</head>
+<body>
+    <div class="main">
+        <h1>Prédiction</h1>
+        <div id="paramétre">
+            <span>Titre : <input id="titre" placeholder="Titre"></span><br>
+            <span>duree (en minute): <input id="duree" value="120" type="number"></span><br>
+            <span>budget : <input id="budget" value="10000" type="number"></span><br>
+            <span>realisateurs : <input id="realisateurs" value="James Cameron"></span><br>
+            <span>casting : <input id="casting" value="Brad Pitt, Damson Idris, ..."></span><br>
+            <span>pays : <input id="recherchePays" placeholder="France"></span>
+            <div id="paysSelect"></div><br>
+            <div class="container-pays">
+                <p id="p"></p>
+                <button id="sup">supprimer</button>
+            </div>
+            <span>genres : <input id="rechercheGenres" placeholder="Drame"></span>
+            <div id="genresSelect"></div><br>
+            <div class="container-genres">
+                <p id="g"></p>
+                <button id="sup2">supprimer</button>
+            </div><br>
+            <span>date : <input id="dateSortie" type="date"></span><br>
+            <button id="valide">Valide</button>
+        </div>
+        <div id="res">
+            <h2>Note :</h2>
+            <p id="note">.../10</p>
+            <h2>Recette :</h2>
+            <p id="Recette">...$</p><br>
+            <p>inferieur a 3 : Les spectateurs ne vont pas aimer le film</p>
+            <p>entre 3 et 5 : Les spectateurs vont moyennement bien aimer le film</p>
+            <p>entre 5 et 7 : Les spectateurs vont bien aimer le film</p>
+            <p>entre 7 et 9 : Les spectateurs vont très bien aimer le film</p>
+            <p>entre 9 et 10 : Les spectateurs vont extrêmement bien aimer le film</p>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    let listePaysSelect = [];
+    let listeGenresSelect = [];
+
+    const recherchePays = document.getElementById('recherchePays');
+    const paysSelect = document.getElementById('paysSelect');
+    recherchePays.addEventListener('keyup', function() {
+        if (recherchePays.value == '') {
+            paysSelect.innerHTML = '';
+            for (let i = 0; i < listePays.length; i++) {
+                const nouveauBtn = document.createElement('button');
+                nouveauBtn.innerHTML = listePays[i];
+                paysSelect.append(nouveauBtn);
+                nouveauBtn.addEventListener('click', function() {
+                    let dedans = dansListePays(nouveauBtn.innerHTML);
+                    if (!dedans) {
+                        const p = document.getElementById('p');
+                        if (p.innerHTML == '') {
+                            p.innerHTML = nouveauBtn.innerHTML;
+                            listePaysSelect.push(nouveauBtn.innerHTML);
+                        } else {
+                            p.innerHTML = p.innerHTML + ', ' + nouveauBtn.innerHTML;
+                            listePaysSelect.push(nouveauBtn.innerHTML);
+                        }
+                    }
+                });
+            }
+        } else {
+            paysSelect.innerHTML = '';
+            for (let i = 0; i < listePays.length; i++) {
+                if (listePays[i].toLowerCase().includes(recherchePays.value.toLowerCase())) {
+                    const nouveauBtn = document.createElement('button');
+                    nouveauBtn.innerHTML = listePays[i];
+                    paysSelect.append(nouveauBtn);
+                    nouveauBtn.addEventListener('click', function() {
+                        let dedans = dansListePays(nouveauBtn.innerHTML);
+                        if (!dedans) {
+                            const p = document.getElementById('p');
+                            if (p.innerHTML == '') {
+                                p.innerHTML = nouveauBtn.innerHTML;
+                                listePaysSelect.push(nouveauBtn.innerHTML);
+                            } else {
+                                p.innerHTML = p.innerHTML + ', ' + nouveauBtn.innerHTML;
+                                listePaysSelect.push(nouveauBtn.innerHTML);
+                            }
+                        }
+                    });
+                }
+            }
+        }
+    });
+
+    const dansListePays = function (texte) {
+        let dedans = false;
+        for (let j = 0; j < listePaysSelect.length; j++) {
+            if (texte == listePaysSelect[j]) {
+                dedans = true;
+            }
+        }
+        return dedans
+    }
+
+    const rechercheGenres = document.getElementById('rechercheGenres');
+    const genresSelect = document.getElementById('genresSelect');
+    rechercheGenres.addEventListener('keyup', function() {
+        if (rechercheGenres.value == '') {
+            genresSelect.innerHTML = '';
+            for (let i = 0; i < listeGenres.length; i++) {
+                const nouveauBtn = document.createElement('button');
+                nouveauBtn.innerHTML = listeGenres[i];
+                genresSelect.append(nouveauBtn);
+                nouveauBtn.addEventListener('click', function() {
+                    let dedans = dansListeGenres(nouveauBtn.innerHTML);
+                    if (!dedans) {
+                        const p = document.getElementById('g');
+                        if (p.innerHTML == '') {
+                            p.innerHTML = nouveauBtn.innerHTML;
+                            listeGenresSelect.push(nouveauBtn.innerHTML);
+                        } else {
+                            p.innerHTML = p.innerHTML + ', ' + nouveauBtn.innerHTML;
+                            listeGenresSelect.push(nouveauBtn.innerHTML);
+                        }
+                    }
+                });
+            }
+        } else {
+            genresSelect.innerHTML = '';
+            for (let i = 0; i < listeGenres.length; i++) {
+                if (listeGenres[i].toLowerCase().includes(rechercheGenres.value.toLowerCase())) {
+                    const nouveauBtn = document.createElement('button');
+                    nouveauBtn.innerHTML = listeGenres[i];
+                    genresSelect.append(nouveauBtn);
+                    nouveauBtn.addEventListener('click', function() {
+                        let dedans = dansListeGenres(nouveauBtn.innerHTML);
+                        if (!dedans) {
+                            const p = document.getElementById('g');
+                            if (p.innerHTML == '') {
+                                p.innerHTML = nouveauBtn.innerHTML;
+                                listeGenresSelect.push(nouveauBtn.innerHTML);
+                            } else {
+                                p.innerHTML = p.innerHTML + ', ' + nouveauBtn.innerHTML;
+                                listeGenresSelect.push(nouveauBtn.innerHTML);
+                            }
+                        }
+                    });
+                }
+            }
+        }
+    });
+
+    const dansListeGenres = function (texte) {
+        let dedans = false;
+        for (let j = 0; j < listeGenresSelect.length; j++) {
+            if (texte == listeGenresSelect[j]) {
+                dedans = true;
+            }
+        }
+        return dedans
+    }
+
+    const sup = document.getElementById('sup');
+    sup.addEventListener('click', function() {
+        const p = document.getElementById('p');
+        p.innerHTML = '';
+        listePaysSelect = [];
+    })
+
+    const sup2 = document.getElementById('sup2');
+    sup2.addEventListener('click', function() {
+        const g = document.getElementById('g');
+        g.innerHTML = '';
+        listeGenresSelect = [];
+    })
+
+    const date = document.getElementById('dateSortie').value;
+
+    const réssult = [];
+    const valide = document.getElementById('valide');
+
+    valide.addEventListener('click', async function() {
+        event.preventDefault();
+        console.log('Bouton cliqué');
+        
+        // On récupère les éléments par ID
+        const dataToSend = {
+            titre: document.getElementById('titre').value,
+            duree: document.getElementById('duree').value,
+            budget: document.getElementById('budget').value,
+            realisateurs: document.getElementById('realisateurs').value,
+            casting: document.getElementById('casting').value,
+            pays: document.getElementById('p').innerHTML,
+            genres: document.getElementById('g').innerHTML,
+            date_sortie: document.getElementById('dateSortie').value
+        };
+
+        console.log('Données envoyées :', dataToSend);
+
+        try {
+            const response = await fetch('http://176.165.52.33:80/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dataToSend)
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                const note = parseFloat(result.note);
+
+                if (note <= 3) {
+                    document.getElementById('note').innerHTML = "Les spectateurs ne vont pas aimer le film";
+                }
+                else if (note <= 5) {
+                    document.getElementById('note').innerHTML = "Les spectateurs vont moyennement bien aimer le film";
+                }
+                else if (note <= 7) {
+                    document.getElementById('note').innerHTML = "Les spectateurs vont bien aimer le film";
+                }
+                else if (note <= 9) {
+                    document.getElementById('note').innerHTML = "Les spectateurs vont très bien aimer le film";
+                }
+                else {
+                    document.getElementById('note').innerHTML = "Les spectateurs vont extrêmement bien aimer le film";
+                }
+                document.getElementById('Recette').innerHTML = result.recette + " $";
+            } else {
+                const errorText = await response.text();
+                console.error("Erreur serveur :", errorText);
+            }
+        } catch (error) {
+            console.error("Erreur de connexion :", error);
+        }
+    });
+
+    const listePays = ['United States of America', 'Australia', 'Algeria', 'Egypt', 'France', 'United Kingdom', 'Canada', 'Germany', 'Italy', 'Japan', 'Thailand', 'Denmark', 'Mexico', 'Czech Republic', 'Hong Kong', 'Belgium', 'Estonia', 'Finland', 'Sweden', 'Ukraine', 'Russia', 'Monaco', 'Spain', 'South Korea', 'Poland', 'Brazil', 'Luxembourg', '', 'China', 'Indonesia', 'Saudi Arabia', 'Israel', 'Morocco', 'Afghanistan', 'India', 'New Zealand', 'Switzerland', 'Holy See', 'Soviet Union', 'Hungary', 'Serbia', 'Romania', 'United Arab Emirates', 'Netherlands', 'Yugoslavia', 'Portugal', 'South Africa', 'Norway', 'Ireland', 'Turkey', 'Argentina', 'Austria', 'Latvia', 'Lithuania', 'Puerto Rico', 'Kenya', 'Cyprus', 'Greece', 'Bahamas', 'Taiwan', 'Bulgaria', 'Colombia', 'Vietnam', 'Iran', 'Bangladesh', 'Tunisia', 'Chile', 'Singapore', 'Qatar', 'Iceland', 'Czechoslovakia', 'Cambodia', 'Philippines', 'Serbia and Montenegro', 'Syrian Arab Republic', 'Malaysia', 'Dominican Republic', 'Peru', 'Liechtenstein', 'Venezuela', 'Lebanon', 'Slovakia', 'Uzbekistan', 'Guadaloupe', 'East Germany', 'Cuba', 'Georgia', 'Mauritius', 'Zimbabwe', 'Solomon Islands', 'Belarus', 'Ecuador', 'Senegal', 'Angola', 'Congo', 'Bolivia', 'Aruba', 'Haiti', 'Netherlands Antilles', 'Bosnia and Herzegovina', 'Jamaica', 'Uruguay', 'Libyan Arab Jamahiriya', 'Kuwait', "Cote D'Ivoire", 'Botswana', 'Costa Rica', 'Nicaragua', 'Martinique', 'Panama', 'St. Kitts and Nevis', 'North Korea', 'Montenegro', 'Burkina Faso', 'Mali', 'Ghana', 'Sri Lanka', 'Namibia', 'Barbados', 'Croatia', 'Malta', 'Slovenia', 'Guinea', 'Macedonia', 'Kazakhstan', 'Albania', 'Palestinian Territory', 'Malawi', 'Jordan', 'Central African Republic', 'Pakistan', 'Ethiopia', 'French Polynesia', 'New Caledonia', 'Nigeria', 'Kosovo', 'Iraq', 'Uganda', 'Mongolia', 'Cook Islands', 'Bhutan', 'Armenia', 'Cameroon', 'Bahrain', 'Tanzania', 'Myanmar', 'Madagascar', 'Rwanda', 'Cayman Islands', 'Guatemala', 'Macao', 'Liberia', 'Honduras', 'Timor-Leste', 'Chad', 'El Salvador', 'Paraguay', 'Turks and Caicos Islands', 'Papua New Guinea', 'Faeroe Islands', 'Zambia', 'Mauritania', 'Nepal', 'Gabon', 'Azerbaijan', 'Yemen', 'Greenland', 'Moldova', 'Oman', 'Sudan'];
+    const listeGenres = ['Comédie', 'Animation', 'Documentaire', 'Crime', 'Drame', 'Action', 'Histoire', 'Musique', 'Romance', 'Mystère', 'Thriller', 'Western', 'Science-Fiction', 'Familial', 'Fantastique', 'Aventure', 'Horreur', 'Guerre', 'Téléfilm', ''];
+</script>
+<style>
+body {
+    background-color: black;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+}
+
+/* CONTENEUR GLOBAL */
+body > div {
+    display: flex;
+    flex-wrap: wrap; /* permet de passer en colonne sur petit écran */
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* BLOCS */
+#paramétre, #res {
+    background-color: rgb(40, 40, 40);
+    border-radius: 10px;
+    padding: 15px;
+    color: white;
+    flex: 1; /* prend la place dispo */
+    min-width: 300px; /* évite que ça devienne trop petit */
+}
+
+/* INPUTS */
+span {
+    color: white;
+    display: block;
+    margin-top: 10px;
+}
+
+input {
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+/* RESULTATS */
+h2 {
+    margin: 10px 0;
+    text-align: center;
+}
+
+/* LISTES */
+.container-pays, .container-genres {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    margin-top: 5px;
+}
+
+#p, #g {
+    margin: 0;
+    min-height: 1.2em;
+}
+
+/* BOUTONS */
+#sup, #sup2 {
+    cursor: pointer;
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 2px 8px;
+}
+
+#valide {
+    margin-top: 15px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+/* 📱 RESPONSIVE (téléphone) */
+@media (max-width: 768px) {
+    body > div {
+        flex-direction: column; /* empile les blocs */
+    }
+}
+</style>
