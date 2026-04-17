@@ -1,397 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prédiction</title>
-</head>
-<body>
-    <div class="main">
-        <h1>Prédiction</h1>
-        <div id="paramétre">
-            <span>Titre : <input id="titre" placeholder="Titre"></span><br>
-            <span>duree (en minute): <input id="duree" value="120" type="number"></span><br>
-            <span>budget : <input id="budget" value="10000" type="number"></span><br>
-            <span>realisateurs : <input id="realisateurs" value="James Cameron"></span><br>
-            <span>casting : <input id="casting" value="Brad Pitt, Damson Idris, ..."></span><br>
-            <span>pays : <input id="recherchePays" placeholder="France"></span>
-            <div id="paysSelect"></div><br>
-            <div class="container-pays">
-                <p id="p"></p>
-                <button id="sup">supprimer</button>
-            </div>
-            <span>genres : <input id="rechercheGenres" placeholder="Drame"></span>
-            <div id="genresSelect"></div><br>
-            <div class="container-genres">
-                <p id="g"></p>
-                <button id="sup2">supprimer</button>
-            </div><br>
-            <span>date : <input id="dateSortie" type="date"></span><br>
-            <button id="valide">Valide</button>
-        </div>
-        <div id="res">
-            <h2>Note :</h2>
-            <p id="note">.../10</p>
-            <h2>Recette :</h2>
-            <p id="Recette">...$</p><br>
-            <p>inferieur à 3 : Les spectateurs ne vont pas aimer le film</p>
-            <p>entre 3 et 5 : Les spectateurs vont moyennement bien aimer le film</p>
-            <p>entre 5 et 7 : Les spectateurs vont bien aimer le film</p>
-            <p>entre 7 et 9 : Les spectateurs vont très bien aimer le film</p>
-            <p>entre 9 et 10 : Les spectateurs vont extrêmement bien aimer le film</p>
-        </div>
-    </div>
-</body>
-</html>
-<script>
-    let listePaysSelect = [];
-    let listeGenresSelect = [];
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prédiction Film</title>
 
-    const recherchePays = document.getElementById('recherchePays');
-    const paysSelect = document.getElementById('paysSelect');
-    recherchePays.addEventListener('keyup', function() {
-        if (recherchePays.value == '') {
-            paysSelect.innerHTML = '';
-            for (let i = 0; i < listePays.length; i++) {
-                const nouveauBtn = document.createElement('button');
-                nouveauBtn.innerHTML = listePays[i];
-                paysSelect.append(nouveauBtn);
-                nouveauBtn.addEventListener('click', function() {
-                    let dedans = dansListePays(nouveauBtn.innerHTML);
-                    if (!dedans) {
-                        const p = document.getElementById('p');
-                        if (p.innerHTML == '') {
-                            p.innerHTML = nouveauBtn.innerHTML;
-                            listePaysSelect.push(nouveauBtn.innerHTML);
-                        } else {
-                            p.innerHTML = p.innerHTML + ', ' + nouveauBtn.innerHTML;
-                            listePaysSelect.push(nouveauBtn.innerHTML);
-                        }
-                    }
-                });
-            }
-        } else {
-            paysSelect.innerHTML = '';
-            for (let i = 0; i < listePays.length; i++) {
-                if (listePays[i].toLowerCase().includes(recherchePays.value.toLowerCase())) {
-                    const nouveauBtn = document.createElement('button');
-                    nouveauBtn.innerHTML = listePays[i];
-                    paysSelect.append(nouveauBtn);
-                    nouveauBtn.addEventListener('click', function() {
-                        let dedans = dansListePays(nouveauBtn.innerHTML);
-                        if (!dedans) {
-                            const p = document.getElementById('p');
-                            if (p.innerHTML == '') {
-                                p.innerHTML = nouveauBtn.innerHTML;
-                                listePaysSelect.push(nouveauBtn.innerHTML);
-                            } else {
-                                p.innerHTML = p.innerHTML + ', ' + nouveauBtn.innerHTML;
-                                listePaysSelect.push(nouveauBtn.innerHTML);
-                            }
-                        }
-                    });
-                }
-            }
-        }
-    });
-
-    const dansListePays = function (texte) {
-        let dedans = false;
-        for (let j = 0; j < listePaysSelect.length; j++) {
-            if (texte == listePaysSelect[j]) {
-                dedans = true;
-            }
-        }
-        return dedans
-    }
-
-    const rechercheGenres = document.getElementById('rechercheGenres');
-    const genresSelect = document.getElementById('genresSelect');
-    rechercheGenres.addEventListener('keyup', function() {
-        if (rechercheGenres.value == '') {
-            genresSelect.innerHTML = '';
-            for (let i = 0; i < listeGenres.length; i++) {
-                const nouveauBtn = document.createElement('button');
-                nouveauBtn.innerHTML = listeGenres[i];
-                genresSelect.append(nouveauBtn);
-                nouveauBtn.addEventListener('click', function() {
-                    let dedans = dansListeGenres(nouveauBtn.innerHTML);
-                    if (!dedans) {
-                        const p = document.getElementById('g');
-                        if (p.innerHTML == '') {
-                            p.innerHTML = nouveauBtn.innerHTML;
-                            listeGenresSelect.push(nouveauBtn.innerHTML);
-                        } else {
-                            p.innerHTML = p.innerHTML + ', ' + nouveauBtn.innerHTML;
-                            listeGenresSelect.push(nouveauBtn.innerHTML);
-                        }
-                    }
-                });
-            }
-        } else {
-            genresSelect.innerHTML = '';
-            for (let i = 0; i < listeGenres.length; i++) {
-                if (listeGenres[i].toLowerCase().includes(rechercheGenres.value.toLowerCase())) {
-                    const nouveauBtn = document.createElement('button');
-                    nouveauBtn.innerHTML = listeGenres[i];
-                    genresSelect.append(nouveauBtn);
-                    nouveauBtn.addEventListener('click', function() {
-                        let dedans = dansListeGenres(nouveauBtn.innerHTML);
-                        if (!dedans) {
-                            const p = document.getElementById('g');
-                            if (p.innerHTML == '') {
-                                p.innerHTML = nouveauBtn.innerHTML;
-                                listeGenresSelect.push(nouveauBtn.innerHTML);
-                            } else {
-                                p.innerHTML = p.innerHTML + ', ' + nouveauBtn.innerHTML;
-                                listeGenresSelect.push(nouveauBtn.innerHTML);
-                            }
-                        }
-                    });
-                }
-            }
-        }
-    });
-
-    const dansListeGenres = function (texte) {
-        let dedans = false;
-        for (let j = 0; j < listeGenresSelect.length; j++) {
-            if (texte == listeGenresSelect[j]) {
-                dedans = true;
-            }
-        }
-        return dedans
-    }
-
-    const sup = document.getElementById('sup');
-    sup.addEventListener('click', function() {
-        const p = document.getElementById('p');
-        p.innerHTML = '';
-        listePaysSelect = [];
-    })
-
-    const sup2 = document.getElementById('sup2');
-    sup2.addEventListener('click', function() {
-        const g = document.getElementById('g');
-        g.innerHTML = '';
-        listeGenresSelect = [];
-    })
-
-    const date = document.getElementById('dateSortie').value;
-
-    const réssult = [];
-    const valide = document.getElementById('valide');
-
-    valide.addEventListener('click', async function() {
-        event.preventDefault();
-        console.log('Bouton cliqué');
-        
-        // On récupère les éléments par ID
-        const dataToSend = {
-            titre: document.getElementById('titre').value,
-            duree: document.getElementById('duree').value,
-            budget: document.getElementById('budget').value,
-            realisateurs: document.getElementById('realisateurs').value,
-            casting: document.getElementById('casting').value,
-            pays: document.getElementById('p').innerHTML,
-            genres: document.getElementById('g').innerHTML,
-            date_sortie: document.getElementById('dateSortie').value
-        };
-
-        console.log('Données envoyées :', dataToSend);
-
-        try {
-            const response = await fetch('https://swiftly-tiara-vividly.ngrok-free.dev/predict', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(dataToSend)
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                const note = parseFloat(result.note);
-
-                if (note <= 3) {
-                    document.getElementById('note').innerHTML = "Les spectateurs ne vont pas aimer le film";
-                }
-                else if (note <= 5) {
-                    document.getElementById('note').innerHTML = "Les spectateurs vont moyennement bien aimer le film";
-                }
-                else if (note <= 7) {
-                    document.getElementById('note').innerHTML = "Les spectateurs vont bien aimer le film";
-                }
-                else if (note <= 9) {
-                    document.getElementById('note').innerHTML = "Les spectateurs vont très bien aimer le film";
-                }
-                else {
-                    document.getElementById('note').innerHTML = "Les spectateurs vont extrêmement bien aimer le film";
-                }
-                document.getElementById('Recette').innerHTML = result.recette + " $";
-            } else {
-                const errorText = await response.text();
-                console.error("Erreur serveur :", errorText);
-            }
-        } catch (error) {
-            console.error("Erreur de connexion :", error);
-        }
-    });
-
-    const listePays = ['United States of America', 'Australia', 'Algeria', 'Egypt', 'France', 'United Kingdom', 'Canada', 'Germany', 'Italy', 'Japan', 'Thailand', 'Denmark', 'Mexico', 'Czech Republic', 'Hong Kong', 'Belgium', 'Estonia', 'Finland', 'Sweden', 'Ukraine', 'Russia', 'Monaco', 'Spain', 'South Korea', 'Poland', 'Brazil', 'Luxembourg', '', 'China', 'Indonesia', 'Saudi Arabia', 'Israel', 'Morocco', 'Afghanistan', 'India', 'New Zealand', 'Switzerland', 'Holy See', 'Soviet Union', 'Hungary', 'Serbia', 'Romania', 'United Arab Emirates', 'Netherlands', 'Yugoslavia', 'Portugal', 'South Africa', 'Norway', 'Ireland', 'Turkey', 'Argentina', 'Austria', 'Latvia', 'Lithuania', 'Puerto Rico', 'Kenya', 'Cyprus', 'Greece', 'Bahamas', 'Taiwan', 'Bulgaria', 'Colombia', 'Vietnam', 'Iran', 'Bangladesh', 'Tunisia', 'Chile', 'Singapore', 'Qatar', 'Iceland', 'Czechoslovakia', 'Cambodia', 'Philippines', 'Serbia and Montenegro', 'Syrian Arab Republic', 'Malaysia', 'Dominican Republic', 'Peru', 'Liechtenstein', 'Venezuela', 'Lebanon', 'Slovakia', 'Uzbekistan', 'Guadaloupe', 'East Germany', 'Cuba', 'Georgia', 'Mauritius', 'Zimbabwe', 'Solomon Islands', 'Belarus', 'Ecuador', 'Senegal', 'Angola', 'Congo', 'Bolivia', 'Aruba', 'Haiti', 'Netherlands Antilles', 'Bosnia and Herzegovina', 'Jamaica', 'Uruguay', 'Libyan Arab Jamahiriya', 'Kuwait', "Cote D'Ivoire", 'Botswana', 'Costa Rica', 'Nicaragua', 'Martinique', 'Panama', 'St. Kitts and Nevis', 'North Korea', 'Montenegro', 'Burkina Faso', 'Mali', 'Ghana', 'Sri Lanka', 'Namibia', 'Barbados', 'Croatia', 'Malta', 'Slovenia', 'Guinea', 'Macedonia', 'Kazakhstan', 'Albania', 'Palestinian Territory', 'Malawi', 'Jordan', 'Central African Republic', 'Pakistan', 'Ethiopia', 'French Polynesia', 'New Caledonia', 'Nigeria', 'Kosovo', 'Iraq', 'Uganda', 'Mongolia', 'Cook Islands', 'Bhutan', 'Armenia', 'Cameroon', 'Bahrain', 'Tanzania', 'Myanmar', 'Madagascar', 'Rwanda', 'Cayman Islands', 'Guatemala', 'Macao', 'Liberia', 'Honduras', 'Timor-Leste', 'Chad', 'El Salvador', 'Paraguay', 'Turks and Caicos Islands', 'Papua New Guinea', 'Faeroe Islands', 'Zambia', 'Mauritania', 'Nepal', 'Gabon', 'Azerbaijan', 'Yemen', 'Greenland', 'Moldova', 'Oman', 'Sudan'];
-    const listeGenres = ['Comédie', 'Animation', 'Documentaire', 'Crime', 'Drame', 'Action', 'Histoire', 'Musique', 'Romance', 'Mystère', 'Thriller', 'Western', 'Science-Fiction', 'Familial', 'Fantastique', 'Aventure', 'Horreur', 'Guerre', 'Téléfilm', ''];
-</script>
 <style>
-    body {
+body {
     background: linear-gradient(135deg, #0f172a, #1e293b);
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
     color: white;
 }
 
-/* TITRE */
 h1 {
     text-align: center;
-    margin-top: 20px;
-    font-size: 2.2em;
+    margin: 20px;
 }
 
-/* CONTAINER GLOBAL */
+/* layout */
 .main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 30px;
-    padding: 30px;
+    gap: 25px;
+    padding: 20px;
 }
 
-/* CARTES */
-#paramétre, #res {
-    background: rgba(255, 255, 255, 0.05);
+/* cartes */
+.card {
+    background: rgba(255,255,255,0.05);
     backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 20px;
     width: 350px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
-/* LABELS */
-span {
-    display: flex;
-    flex-direction: column;
+/* inputs */
+.field {
     margin-top: 12px;
-    font-size: 0.9em;
-    opacity: 0.9;
 }
 
-/* INPUTS */
-input {
-    margin-top: 5px;
-    padding: 8px;
-    border-radius: 6px;
-    border: none;
-    outline: none;
-    background-color: #1e293b;
-    color: white;
-}
-
-input:focus {
-    border: 1px solid #38bdf8;
-}
-
-/* SELECT BUTTONS (pays/genres) */
-#paysSelect button,
-#genresSelect button {
-    margin: 3px;
-    padding: 5px 8px;
-    border-radius: 6px;
-    border: none;
-    background-color: #334155;
-    color: white;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-#paysSelect button:hover,
-#genresSelect button:hover {
-    background-color: #38bdf8;
-}
-
-/* LISTES SÉLECTIONNÉES */
-.container-pays, .container-genres {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 8px;
-    background-color: #1e293b;
-    padding: 6px;
-    border-radius: 6px;
-}
-
-#p, #g {
-    margin: 0;
-    font-size: 0.85em;
-}
-
-/* BOUTONS */
-button {
-    border: none;
-    border-radius: 6px;
-    padding: 6px 10px;
-    cursor: pointer;
-}
-
-/* supprimer */
-#sup, #sup2 {
-    background-color: #ef4444;
-    color: white;
-}
-
-#sup:hover, #sup2:hover {
-    background-color: #dc2626;
-}
-
-/* VALIDER */
-#valide {
-    width: 100%;
-    margin-top: 20px;
-    padding: 10px;
-    background: linear-gradient(90deg, #38bdf8, #6366f1);
-    color: white;
-    font-weight: bold;
-    transition: 0.2s;
-}
-
-#valide:hover {
-    transform: scale(1.05);
-}
-
-/* RESULTATS */
-#res h2 {
-    text-align: center;
-    margin-top: 10px;
-}
-
-#note {
-    text-align: center;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #38bdf8;
-}
-
-#Recette {
-    text-align: center;
-    font-size: 1.2em;
-    color: #4ade80;
-}
-
-/* TEXTE EXPLICATION */
-#res p {
+label {
     font-size: 0.85em;
     opacity: 0.8;
 }
 
-/* RESPONSIVE */
+input {
+    width: 100%;
+    margin-top: 5px;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    background: #1e293b;
+    color: white;
+}
+
+/* dropdown */
+.dropdown {
+    background: #1e293b;
+    border-radius: 6px;
+    margin-top: 5px;
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+.dropdown div {
+    padding: 6px;
+    cursor: pointer;
+}
+
+.dropdown div:hover {
+    background: #38bdf8;
+}
+
+/* tags */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.tag {
+    background: #38bdf8;
+    color: black;
+    padding: 5px 8px;
+    border-radius: 20px;
+    display: flex;
+    gap: 5px;
+    font-size: 0.8em;
+}
+
+.tag span {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* bouton */
+#valide {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(90deg, #38bdf8, #6366f1);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* résultats */
+.result {
+    text-align: center;
+}
+
+#note {
+    color: #38bdf8;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#Recette {
+    color: #4ade80;
+    font-size: 1.2em;
+}
+
+/* mobile */
 @media (max-width: 768px) {
     .main {
         flex-direction: column;
@@ -399,3 +135,178 @@ button {
     }
 }
 </style>
+</head>
+
+<body>
+
+<h1>🎬 Prédiction Film</h1>
+
+<div class="main">
+
+<div class="card">
+
+<div class="field">
+<label>Titre</label>
+<input id="titre">
+</div>
+
+<div class="field">
+<label>Durée (minutes)</label>
+<input id="duree" type="number" value="120">
+</div>
+
+<div class="field">
+<label>Budget</label>
+<input id="budget" type="number" value="10000000">
+</div>
+
+<div class="field">
+<label>Réalisateurs</label>
+<input id="realisateurs" value="James Cameron">
+</div>
+
+<div class="field">
+<label>Casting</label>
+<input id="casting">
+</div>
+
+<!-- PAYS -->
+<div class="field">
+<label>Pays</label>
+<input id="recherchePays" placeholder="Rechercher...">
+<div id="paysSelect" class="dropdown"></div>
+<div id="paysTags" class="tags"></div>
+</div>
+
+<!-- GENRES -->
+<div class="field">
+<label>Genres</label>
+<input id="rechercheGenres" placeholder="Rechercher...">
+<div id="genresSelect" class="dropdown"></div>
+<div id="genresTags" class="tags"></div>
+</div>
+
+<div class="field">
+<label>Date de sortie</label>
+<input id="dateSortie" type="date">
+</div>
+
+<button id="valide">Prédire</button>
+
+</div>
+
+<div class="card result">
+<h2>Note</h2>
+<p id="note">...</p>
+
+<h2>Recette</h2>
+<p id="Recette">...</p>
+</div>
+
+</div>
+
+<script>
+function setupAutocomplete(inputId, dropdownId, tagsId, dataList) {
+    const input = document.getElementById(inputId);
+    const dropdown = document.getElementById(dropdownId);
+    const tagsContainer = document.getElementById(tagsId);
+
+    let selected = [];
+
+    input.addEventListener('input', () => {
+        const value = input.value.toLowerCase();
+        dropdown.innerHTML = '';
+
+        if (!value) return;
+
+        dataList
+            .filter(item => item.toLowerCase().includes(value))
+            .slice(0, 8)
+            .forEach(item => {
+                const option = document.createElement('div');
+                option.textContent = item;
+
+                option.onclick = () => {
+                    if (!selected.includes(item)) {
+                        selected.push(item);
+                        renderTags();
+                    }
+                    input.value = '';
+                    dropdown.innerHTML = '';
+                };
+
+                dropdown.appendChild(option);
+            });
+    });
+
+    function renderTags() {
+        tagsContainer.innerHTML = '';
+
+        selected.forEach(item => {
+            const tag = document.createElement('div');
+            tag.className = 'tag';
+            tag.innerHTML = `${item} <span>x</span>`;
+
+            tag.querySelector('span').onclick = () => {
+                selected = selected.filter(i => i !== item);
+                renderTags();
+            };
+
+            tagsContainer.appendChild(tag);
+        });
+    }
+
+    return () => selected.join(', ');
+}
+
+/* données */
+const listePays = ['France','United States of America','United Kingdom','Canada','Germany','Italy','Japan'];
+const listeGenres = ['Action','Comédie','Drame','Thriller','Science-Fiction','Animation','Romance'];
+
+/* init */
+const getPays = setupAutocomplete('recherchePays','paysSelect','paysTags',listePays);
+const getGenres = setupAutocomplete('rechercheGenres','genresSelect','genresTags',listeGenres);
+
+/* API */
+document.getElementById('valide').addEventListener('click', async function(event) {
+    event.preventDefault();
+
+    const data = {
+        titre: document.getElementById('titre').value,
+        duree: document.getElementById('duree').value,
+        budget: document.getElementById('budget').value,
+        realisateurs: document.getElementById('realisateurs').value,
+        casting: document.getElementById('casting').value,
+        pays: getPays(),
+        genres: getGenres(),
+        date_sortie: document.getElementById('dateSortie').value
+    };
+
+    try {
+        const res = await fetch('https://swiftly-tiara-vividly.ngrok-free.dev/predict', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+        const note = parseFloat(result.note);
+
+        let texte = '';
+        if (note <= 3) texte = "Pas aimé 😬";
+        else if (note <= 5) texte = "Moyen 🤔";
+        else if (note <= 7) texte = "Bien 👍";
+        else if (note <= 9) texte = "Très bien 🔥";
+        else texte = "Excellent 🚀";
+
+        document.getElementById('note').innerHTML = texte + " (" + note + "/10)";
+        document.getElementById('Recette').innerHTML = result.recette + " $";
+
+    } catch (err) {
+        console.error(err);
+    }
+});
+</script>
+
+</body>
+</html>
