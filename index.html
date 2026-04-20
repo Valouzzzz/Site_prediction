@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prédiction Film</title>
 <script src="directors.js"></script>
+<script src="actors.js"></script>
 
 <style>
 body {
@@ -261,14 +262,6 @@ function setupAutocomplete(inputId, dropdownId, tagsId, dataList) {
 /* données */
 const listePays = ['United States of America', 'Australia', 'Algeria', 'Egypt', 'France', 'United Kingdom', 'Canada', 'Germany', 'Italy', 'Japan', 'Thailand', 'Denmark', 'Mexico', 'Czech Republic', 'Hong Kong', 'Belgium', 'Estonia', 'Finland', 'Sweden', 'Ukraine', 'Russia', 'Monaco', 'Spain', 'South Korea', 'Poland', 'Brazil', 'Luxembourg', '', 'China', 'Indonesia', 'Saudi Arabia', 'Israel', 'Morocco', 'Afghanistan', 'India', 'New Zealand', 'Switzerland', 'Holy See', 'Soviet Union', 'Hungary', 'Serbia', 'Romania', 'United Arab Emirates', 'Netherlands', 'Yugoslavia', 'Portugal', 'South Africa', 'Norway', 'Ireland', 'Turkey', 'Argentina', 'Austria', 'Latvia', 'Lithuania', 'Puerto Rico', 'Kenya', 'Cyprus', 'Greece', 'Bahamas', 'Taiwan', 'Bulgaria', 'Colombia', 'Vietnam', 'Iran', 'Bangladesh', 'Tunisia', 'Chile', 'Singapore', 'Qatar', 'Iceland', 'Czechoslovakia', 'Cambodia', 'Philippines', 'Serbia and Montenegro', 'Syrian Arab Republic', 'Malaysia', 'Dominican Republic', 'Peru', 'Liechtenstein', 'Venezuela', 'Lebanon', 'Slovakia', 'Uzbekistan', 'Guadaloupe', 'East Germany', 'Cuba', 'Georgia', 'Mauritius', 'Zimbabwe', 'Solomon Islands', 'Belarus', 'Ecuador', 'Senegal', 'Angola', 'Congo', 'Bolivia', 'Aruba', 'Haiti', 'Netherlands Antilles', 'Bosnia and Herzegovina', 'Jamaica', 'Uruguay', 'Libyan Arab Jamahiriya', 'Kuwait', "Cote D'Ivoire", 'Botswana', 'Costa Rica', 'Nicaragua', 'Martinique', 'Panama', 'St. Kitts and Nevis', 'North Korea', 'Montenegro', 'Burkina Faso', 'Mali', 'Ghana', 'Sri Lanka', 'Namibia', 'Barbados', 'Croatia', 'Malta', 'Slovenia', 'Guinea', 'Macedonia', 'Kazakhstan', 'Albania', 'Palestinian Territory', 'Malawi', 'Jordan', 'Central African Republic', 'Pakistan', 'Ethiopia', 'French Polynesia', 'New Caledonia', 'Nigeria', 'Kosovo', 'Iraq', 'Uganda', 'Mongolia', 'Cook Islands', 'Bhutan', 'Armenia', 'Cameroon', 'Bahrain', 'Tanzania', 'Myanmar', 'Madagascar', 'Rwanda', 'Cayman Islands', 'Guatemala', 'Macao', 'Liberia', 'Honduras', 'Timor-Leste', 'Chad', 'El Salvador', 'Paraguay', 'Turks and Caicos Islands', 'Papua New Guinea', 'Faeroe Islands', 'Zambia', 'Mauritania', 'Nepal', 'Gabon', 'Azerbaijan', 'Yemen', 'Greenland', 'Moldova', 'Oman', 'Sudan'];  
 const listeGenres = ['Comédie', 'Animation', 'Documentaire', 'Crime', 'Drame', 'Action', 'Histoire', 'Musique', 'Romance', 'Mystère', 'Thriller', 'Western', 'Science-Fiction', 'Familial', 'Fantastique', 'Aventure', 'Horreur', 'Guerre', 'Téléfilm', ''];
-
-const listeActeurs = [
-    "Brad Pitt",
-    "Leonardo DiCaprio",
-    "Tom Cruise",
-    "Scarlett Johansson",
-    "Denzel Washington"
-];
 
 /* init */
 const getPays = setupAutocomplete('recherchePays','paysSelect','paysTags',listePays);
