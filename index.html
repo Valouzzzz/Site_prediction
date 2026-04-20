@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prédiction Film</title>
+<script src="directors.js"></script>
 
 <style>
 body {
@@ -18,7 +19,6 @@ h1 {
     margin: 20px;
 }
 
-/* layout */
 .main {
     display: flex;
     flex-wrap: wrap;
@@ -27,7 +27,6 @@ h1 {
     padding: 20px;
 }
 
-/* cartes */
 .card {
     background: rgba(255,255,255,0.05);
     backdrop-filter: blur(10px);
@@ -37,7 +36,6 @@ h1 {
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
-/* inputs */
 .field {
     margin-top: 12px;
 }
@@ -57,7 +55,6 @@ input {
     color: white;
 }
 
-/* dropdown */
 .dropdown {
     background: #1e293b;
     border-radius: 6px;
@@ -75,7 +72,6 @@ input {
     background: #38bdf8;
 }
 
-/* tags */
 .tags {
     display: flex;
     flex-wrap: wrap;
@@ -98,7 +94,6 @@ input {
     font-weight: bold;
 }
 
-/* bouton */
 #valide {
     width: 100%;
     margin-top: 20px;
@@ -111,7 +106,6 @@ input {
     cursor: pointer;
 }
 
-/* résultats */
 .result {
     text-align: center;
 }
@@ -127,7 +121,6 @@ input {
     font-size: 1.2em;
 }
 
-/* mobile */
 @media (max-width: 768px) {
     .main {
         flex-direction: column;
@@ -151,7 +144,7 @@ input {
 </div>
 
 <div class="field">
-<label>Durée (minutes)</label>
+<label>Durée</label>
 <input id="duree" type="number" value="120">
 </div>
 
@@ -160,14 +153,20 @@ input {
 <input id="budget" type="number" value="10000000">
 </div>
 
+<!-- REALISATEURS -->
 <div class="field">
 <label>Réalisateurs</label>
-<input id="realisateurs" value="James Cameron">
+<input id="rechercheRealisateurs" placeholder="Rechercher...">
+<div id="realisateursSelect" class="dropdown"></div>
+<div id="realisateursTags" class="tags"></div>
 </div>
 
+<!-- ACTEURS -->
 <div class="field">
 <label>Casting</label>
-<input id="casting" value="Brad Pitt, Damson Idris, ...">
+<input id="rechercheActeurs" placeholder="Rechercher...">
+<div id="acteursSelect" class="dropdown"></div>
+<div id="acteursTags" class="tags"></div>
 </div>
 
 <!-- PAYS -->
@@ -263,9 +262,19 @@ function setupAutocomplete(inputId, dropdownId, tagsId, dataList) {
 const listePays = ['United States of America', 'Australia', 'Algeria', 'Egypt', 'France', 'United Kingdom', 'Canada', 'Germany', 'Italy', 'Japan', 'Thailand', 'Denmark', 'Mexico', 'Czech Republic', 'Hong Kong', 'Belgium', 'Estonia', 'Finland', 'Sweden', 'Ukraine', 'Russia', 'Monaco', 'Spain', 'South Korea', 'Poland', 'Brazil', 'Luxembourg', '', 'China', 'Indonesia', 'Saudi Arabia', 'Israel', 'Morocco', 'Afghanistan', 'India', 'New Zealand', 'Switzerland', 'Holy See', 'Soviet Union', 'Hungary', 'Serbia', 'Romania', 'United Arab Emirates', 'Netherlands', 'Yugoslavia', 'Portugal', 'South Africa', 'Norway', 'Ireland', 'Turkey', 'Argentina', 'Austria', 'Latvia', 'Lithuania', 'Puerto Rico', 'Kenya', 'Cyprus', 'Greece', 'Bahamas', 'Taiwan', 'Bulgaria', 'Colombia', 'Vietnam', 'Iran', 'Bangladesh', 'Tunisia', 'Chile', 'Singapore', 'Qatar', 'Iceland', 'Czechoslovakia', 'Cambodia', 'Philippines', 'Serbia and Montenegro', 'Syrian Arab Republic', 'Malaysia', 'Dominican Republic', 'Peru', 'Liechtenstein', 'Venezuela', 'Lebanon', 'Slovakia', 'Uzbekistan', 'Guadaloupe', 'East Germany', 'Cuba', 'Georgia', 'Mauritius', 'Zimbabwe', 'Solomon Islands', 'Belarus', 'Ecuador', 'Senegal', 'Angola', 'Congo', 'Bolivia', 'Aruba', 'Haiti', 'Netherlands Antilles', 'Bosnia and Herzegovina', 'Jamaica', 'Uruguay', 'Libyan Arab Jamahiriya', 'Kuwait', "Cote D'Ivoire", 'Botswana', 'Costa Rica', 'Nicaragua', 'Martinique', 'Panama', 'St. Kitts and Nevis', 'North Korea', 'Montenegro', 'Burkina Faso', 'Mali', 'Ghana', 'Sri Lanka', 'Namibia', 'Barbados', 'Croatia', 'Malta', 'Slovenia', 'Guinea', 'Macedonia', 'Kazakhstan', 'Albania', 'Palestinian Territory', 'Malawi', 'Jordan', 'Central African Republic', 'Pakistan', 'Ethiopia', 'French Polynesia', 'New Caledonia', 'Nigeria', 'Kosovo', 'Iraq', 'Uganda', 'Mongolia', 'Cook Islands', 'Bhutan', 'Armenia', 'Cameroon', 'Bahrain', 'Tanzania', 'Myanmar', 'Madagascar', 'Rwanda', 'Cayman Islands', 'Guatemala', 'Macao', 'Liberia', 'Honduras', 'Timor-Leste', 'Chad', 'El Salvador', 'Paraguay', 'Turks and Caicos Islands', 'Papua New Guinea', 'Faeroe Islands', 'Zambia', 'Mauritania', 'Nepal', 'Gabon', 'Azerbaijan', 'Yemen', 'Greenland', 'Moldova', 'Oman', 'Sudan'];  
 const listeGenres = ['Comédie', 'Animation', 'Documentaire', 'Crime', 'Drame', 'Action', 'Histoire', 'Musique', 'Romance', 'Mystère', 'Thriller', 'Western', 'Science-Fiction', 'Familial', 'Fantastique', 'Aventure', 'Horreur', 'Guerre', 'Téléfilm', ''];
 
+const listeActeurs = [
+    "Brad Pitt",
+    "Leonardo DiCaprio",
+    "Tom Cruise",
+    "Scarlett Johansson",
+    "Denzel Washington"
+];
+
 /* init */
 const getPays = setupAutocomplete('recherchePays','paysSelect','paysTags',listePays);
 const getGenres = setupAutocomplete('rechercheGenres','genresSelect','genresTags',listeGenres);
+const getRealisateurs = setupAutocomplete('rechercheRealisateurs','realisateursSelect','realisateursTags',listeRealisateurs);
+const getActeurs = setupAutocomplete('rechercheActeurs','acteursSelect','acteursTags',listeActeurs);
 
 /* API */
 document.getElementById('valide').addEventListener('click', async function(event) {
@@ -275,8 +284,8 @@ document.getElementById('valide').addEventListener('click', async function(event
         titre: document.getElementById('titre').value,
         duree: document.getElementById('duree').value,
         budget: document.getElementById('budget').value,
-        realisateurs: document.getElementById('realisateurs').value,
-        casting: document.getElementById('casting').value,
+        realisateurs: getRealisateurs(),
+        casting: getActeurs(),
         pays: getPays(),
         genres: getGenres(),
         date_sortie: document.getElementById('dateSortie').value
