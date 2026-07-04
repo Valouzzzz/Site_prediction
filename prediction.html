@@ -328,24 +328,28 @@ footer a:hover {
 <script>
 const movies = [
     {
-        title: "Interstellar",
-        poster: "https://mir-s3-cdn-cf.behance.net/project_modules/hd/8d8f28105415493.619ded067937d.jpg",
-        rating: 7.8
+        title: "Avengers : Dommsday",
+        poster: "poster/Avengers.png",
+        rating: 6.86,
+        profit: 540
     },
     {
-        title: "Inception",
-        poster: "https://i.pinimg.com/736x/be/69/95/be6995e706e3af8fdce6aab2d04ecef6.jpg",
-        rating: 8.9
+        title: "Shrek 5",
+        poster: "poster/shrek.png",
+        rating: 6.4,
+        profit: 701
     },
     {
-        title: "Dune",
-        poster: "https://vice-press.com/cdn/shop/products/dune-bella-grace-movie-poster.jpg?v=1681287576&width=1024",
-        rating: 8.3
+        title: "Dune: Part III",
+        poster: "poster/dune.png",
+        rating: 7.8,
+        profit: 940
     },
     {
-        title: "The Batman",
-        poster: "https://static.posters.cz/image/1300/the-batman-2022-i122127.jpg",
-        rating: 7.4
+        title: "The Batman II",
+        poster: "poster/batman.png",
+        rating: 7.11,
+        profit: 800
     }
 ];
 
@@ -360,12 +364,18 @@ function renderCard(movie) {
         <img class="poster" src="${movie.poster}">
         <div class="card-content">
             <div class="title">${movie.title}</div>
+            
             <div class="rating-header">
-                <span>Note prédite</span>
+                <span>Predicted score</span>
                 <span class="rating-value">${movie.rating.toFixed(1)} / 10</span>
             </div>
             <div class="rating-bar">
                 <div class="rating-fill" style="width:${movie.rating * 10}%"></div>
+            </div>
+
+            <div class="rating-header" style="margin-top: 15px;">
+                <span>Predicted profit</span>
+                <span class="rating-value">Profit : ${movie.profit} M$</span>
             </div>
         </div>
     `;
